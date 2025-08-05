@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'summer-class.onrender.com',
     '127.0.0.1',
     'localhost',
+    'www.medineearyal.com.np',
 ]
 
 
@@ -151,4 +152,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 CSRF_TRUSTED_ORIGINS = [
     'https://summer-class.onrender.com',
+    'https://medineearyal.com.np',
 ]
