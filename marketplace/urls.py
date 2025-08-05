@@ -20,6 +20,7 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from orders import views as order_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('',views.home, name='home'),
@@ -27,5 +28,5 @@ urlpatterns = [
     path("orders/", include('orders.urls')),
     path("blogs/",include('blogs.urls') ),
     path("pages/", include('pages.urls')),
-
+    path("cart/", order_views.cart, name='cart')
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
