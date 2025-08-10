@@ -14,19 +14,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
-from django.contrib import admin
-from django.urls import path, include
-from . import views
-from django.conf.urls.static import static
 from django.conf import settings
-from orders import views as order_views
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('',views.home, name='home'),
-    path("products/", include('products.urls')),
-    path("orders/", include('orders.urls')),
-    path("blogs/",include('blogs.urls') ),
-    path("pages/", include('pages.urls')),
-    path("cart/", order_views.cart, name='cart')
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path("", include("apps.pages.urls")),
+    path("accounts/", include("allauth.urls")),
+    path("products/", include("apps.products.urls")),
+    path("orders/", include("apps.orders.urls")),
+    path("blogs/", include("apps.blogs.urls")),
+    path("pages/", include("apps.pages.urls")),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
+
+    if not settings.TESTING:
+        from debug_toolbar.toolbar import debug_toolbar_urls
+
+        urlpatterns += debug_toolbar_urls()
